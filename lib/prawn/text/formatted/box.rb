@@ -158,6 +158,7 @@ module Prawn
           @width             = options[:width] ||
                                @document.bounds.right - @at[0]
           @height            = options[:height] || default_height
+          # @align             = options[:align]
           @align             = options[:align] ||
                                (@direction == :rtl ? :right : :left)
           @vertical_align    = options[:valign] || :top

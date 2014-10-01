@@ -7,6 +7,7 @@ require "set"
 
 require 'ttfunk'
 require "pdf/core"
+require 'string-direction'
 
 module Prawn
   extend self

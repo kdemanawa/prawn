@@ -115,6 +115,11 @@ module Prawn
         end
 
         def direction
+          direction = @format_state[:direction]
+          if direction == :auto
+            direction = @original_text.direction.to_sym
+            @format_state[:direction] = direction == :bidi ? :ltr : direction
+          end
           @format_state[:direction]
         end
 

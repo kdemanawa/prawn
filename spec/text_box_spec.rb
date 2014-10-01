@@ -93,6 +93,29 @@ describe "Text::Box" do
     text.strings[0].should == "Hello world, how are you?"
     text.strings[1].should == "I'm fine, thank you."
   end
+
+  it "should able to auto detect text direction when direction set to :auto",
+    :new_feature do
+    create_pdf
+    @pdf.text_direction = :auto
+    @pdf.font("#{Prawn::DATADIR}/fonts/DejaVuSans.ttf", :size => 16) do
+      @pdf.text "חשבון נגדי"
+    end
+    text = PDF::Inspector::Text.analyze(@pdf.render)
+    text.strings[0].should == "ידגנ ןובשח"
+  end
+
+  it "should able to auto detect text direction with bi-direction text",
+    :new_feature do
+    create_pdf
+    @pdf.text_direction = :auto
+    @pdf.font("#{Prawn::DATADIR}/fonts/DejaVuSans.ttf", :size => 16) do
+      @pdf.text "works good חשבון נגדי"
+    end
+    text = PDF::Inspector::Text.analyze(@pdf.render)
+    text.strings[0].should == "works good "
+    text.strings[1].should == "חשבון נגדי"
+  end
 end
 
 describe "Text::Box" do
